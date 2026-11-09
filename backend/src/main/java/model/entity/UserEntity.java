@@ -1,17 +1,10 @@
 package model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import model.enums.RoleEnum;
-import org.springframework.data.annotation.Id;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
@@ -24,13 +17,30 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(unique = true)
     private String phone;
-    private String password_hash;
-    private String full_name;
-    private String avatar_url;
+
+    @Enumerated(EnumType.STRING)
     private RoleEnum role;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
-    private LocalDateTime last_login_at;
+
+    @Column(name = "password_hash", nullable = false)
+    private String passwordHash;
+
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
+
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
+
+    @Column(name = "last_login_at")
+    private Timestamp lastLoginAt;
 }
