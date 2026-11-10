@@ -1,4 +1,4 @@
-package model.enums;
+package com.example.model.enums;
 
 public enum SeatCategoryEnum {
     STANDARD,

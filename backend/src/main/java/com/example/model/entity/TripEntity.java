@@ -1,8 +1,8 @@
-package model.entity;
+package com.example.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import model.enums.TripStatusEnum;
+import com.example.model.enums.TripStatusEnum;
 
 import java.sql.Timestamp;
 import java.util.UUID;

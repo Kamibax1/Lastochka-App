@@ -1,4 +1,4 @@
-package model.entity;
+package com.example.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

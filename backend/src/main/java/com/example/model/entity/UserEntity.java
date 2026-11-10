@@ -1,8 +1,10 @@
-package model.entity;
+package com.example.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import model.enums.RoleEnum;
+import com.example.model.enums.RoleEnum;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -16,6 +18,9 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(unique = true, nullable = false)
+    private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -36,11 +41,14 @@ public class UserEntity {
     private String avatarUrl;
 
     @Column(name = "created_at")
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp updatedAt;
 
     @Column(name = "last_login_at")
+    @CreationTimestamp
     private Timestamp lastLoginAt;
 }
