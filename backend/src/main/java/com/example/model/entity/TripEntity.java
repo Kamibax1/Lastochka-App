@@ -5,6 +5,8 @@ import lombok.*;
 import com.example.model.enums.TripStatusEnum;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,6 +33,9 @@ public class TripEntity {
 
     @Enumerated(EnumType.STRING)
     private TripStatusEnum status;
+
+    @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY)
+    private List<SeatEntity> seats = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id", nullable = false)

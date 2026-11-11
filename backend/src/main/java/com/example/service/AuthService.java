@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -34,6 +36,7 @@ public class AuthService {
         this.mapper = mapper;
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public AuthResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
@@ -52,6 +55,7 @@ public class AuthService {
         return new AuthResponse(token, userResponse);
     }
 
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public AuthResponse register(RegisterRequest request) throws ValidationException {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new ValidationException("Username already exists");

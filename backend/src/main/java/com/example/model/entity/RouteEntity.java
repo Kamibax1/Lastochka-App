@@ -15,6 +15,9 @@ public class RouteEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(name = "duration_min", nullable = false)
     private Integer durationMin;
 
