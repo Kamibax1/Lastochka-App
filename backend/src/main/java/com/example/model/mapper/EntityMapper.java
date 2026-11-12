@@ -2,12 +2,12 @@ package com.example.model.mapper;
 
 import com.example.model.dto.request.RegisterRequest;
 import com.example.model.dto.response.StationResponse;
-import com.example.model.dto.response.TripResponse;
 import com.example.model.dto.response.UserResponse;
 import com.example.model.entity.StationEntity;
-import com.example.model.entity.TripEntity;
 import com.example.model.entity.UserEntity;
 import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 @Component
 public class EntityMapper {
@@ -40,20 +40,7 @@ public class EntityMapper {
         response.setCode(entity.getCode());
         response.setName(entity.getName());
         response.setCity(entity.getCity());
-        return response;
-    }
-
-    public TripResponse toTripResponse(TripEntity entity) {
-        TripResponse response = new TripResponse();
-        response.setId(entity.getId());
-        response.setRouteName(entity.getRoute().getName());
-        response.setTrainModel(entity.getRoute().getTrain().getModel());
-        response.setDepartureTime(entity.getScheduleDepTime());
-        response.setArrivalTime(entity.getScheduleArrTime());
-        response.setDurationMinutes(entity.getRoute().getDurationMin());
-        response.setStatus(entity.getStatus());
-        response.setAvailableSeatsCount(entity.getSeats().size());
-        response.setBasePrice(entity.getRoute().getBasePrice());
+        response.setIsActive(entity.getIsActive());
         return response;
     }
 }

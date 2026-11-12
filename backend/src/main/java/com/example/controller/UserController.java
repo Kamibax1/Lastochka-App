@@ -7,6 +7,7 @@ import com.example.service.UserService;
 import com.example.service.UserStatsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class UserController {
     @Operation(summary = "Update user by id")
     @SecurityRequirement(name = "bearer-jwt")
     @PutMapping("/{userId}")
-    public UserResponse updateUser(@PathVariable("userId") UUID userId, @RequestBody UserUpdateRequest request) {
+    public UserResponse updateUser(@PathVariable("userId") UUID userId, @Valid @RequestBody UserUpdateRequest request) {
         return userService.updateUser(userId, request);
     }
 }

@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-public interface TripRepository extends JpaRepository<TripEntity, Long> {
+public interface TripRepository extends JpaRepository<TripEntity, UUID> {
     @Query("SELECT t FROM TripEntity t WHERE " +
             "t.route.originStation.id = :originId AND " +
             "t.route.destinationStation.id = :destinationId AND " +
