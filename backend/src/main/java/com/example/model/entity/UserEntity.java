@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +30,8 @@ public class UserEntity {
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    @Column(nullable = false)
+    private RoleEnum role = RoleEnum.USER;
 
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
@@ -40,15 +42,14 @@ public class UserEntity {
     @Column(name = "avatar_url")
     private String avatarUrl;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private Timestamp createdAt;
+    private Instant createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    private Instant updatedAt;
 
     @Column(name = "last_login_at")
-    @CreationTimestamp
-    private Timestamp lastLoginAt;
+    private Instant lastLoginAt;
 }

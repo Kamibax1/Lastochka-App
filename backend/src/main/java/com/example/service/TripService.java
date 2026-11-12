@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -23,8 +24,8 @@ public class TripService {
 
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public List<TripResponse> searchTrip(SearchTripRequest request) {
-        Timestamp startOfDay = Timestamp.valueOf(request.getDate().atStartOfDay());
-        Timestamp endOfDay = Timestamp.valueOf(request.getDate().plusDays(1).atStartOfDay());
+        Instant startOfDay = request.getDate();
+        Instant endOfDay = request.getDate().plus(1, ChronoUnit.DAYS);
         return tripRepository.searchTrip(request.getOriginId(), request.getDestinationId(), startOfDay, endOfDay).stream()
                 .map(mapper::toTripResponse)
                 .toList();

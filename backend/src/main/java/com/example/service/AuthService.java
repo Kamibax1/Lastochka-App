@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Service
 public class AuthService {
@@ -48,7 +48,7 @@ public class AuthService {
         }
 
         String token = jwtService.generateToken(entity);
-        entity.setLastLoginAt(new Timestamp(System.currentTimeMillis()));
+        entity.setLastLoginAt(Instant.now());
         userRepository.save(entity);
         UserResponse userResponse = mapper.toUserResponse(entity);
 
@@ -69,6 +69,7 @@ public class AuthService {
         UserEntity entity = mapper.toUserEntity(request);
         entity.setPasswordHash(passwordEncoder.encode(request.getPassword()));
         entity.setRole(RoleEnum.USER);
+        entity.setLastLoginAt(Instant.now());
 
         UserEntity saved = userRepository.save(entity);
         String token = jwtService.generateToken(saved);

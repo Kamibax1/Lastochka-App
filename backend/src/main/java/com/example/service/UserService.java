@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.dto.request.UserUpdateRequest;
 import com.example.model.dto.response.UserResponse;
 import com.example.model.entity.UserEntity;
 import com.example.model.mapper.EntityMapper;
@@ -9,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -28,5 +31,17 @@ public class UserService {
         }
 
         return mapper.toUserResponse(entity);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public UserResponse updateUser(UUID userId, UserUpdateRequest userUpdateRequest) {
+        UserEntity entity = userRepository.findByUserId(userId);
+        if (entity == null) {
+            throw new EntityNotFoundException("User with id '" + userId + "' not found");
+        }
+        entity.setFullName(userUpdateRequest.getFullName());
+        entity.setPhone(userUpdateRequest.getPhone());
+        entity.setAvatarUrl(userUpdateRequest.getAvatarUrl());
+        return mapper.toUserResponse(userRepository.save(entity));
     }
 }

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -27,12 +28,17 @@ public class SeatEntity {
     private String seatNumber;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SeatCategoryEnum category;
 
     @Enumerated(EnumType.STRING)
-    private SeatStatusEnum status;
+    @Column(nullable = false)
+    private SeatStatusEnum status = SeatStatusEnum.FREE;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "reserved_until")
+    private Instant reservedUntil;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "trip_id", nullable = false)
     private TripEntity trip;
 }

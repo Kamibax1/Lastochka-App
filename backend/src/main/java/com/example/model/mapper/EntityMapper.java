@@ -27,6 +27,10 @@ public class EntityMapper {
         response.setUsername(entity.getUsername());
         response.setEmail(entity.getEmail());
         response.setRole(entity.getRole());
+        response.setPhone(entity.getPhone());
+        response.setAvatarUrl(entity.getAvatarUrl());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setLastLoginAt(entity.getLastLoginAt());
         return response;
     }
 

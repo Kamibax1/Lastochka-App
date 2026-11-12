@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 @Getter @Setter
@@ -16,10 +17,10 @@ public class TripResponse {
     private UUID id;
     private String routeName;
     private String trainModel;
-    private Timestamp departureTime;
-    private Timestamp arrivalTime;
+    private Instant departureTime;
+    private Instant arrivalTime;
     private Integer durationMinutes;
     private TripStatusEnum Status;
     private Integer availableSeatsCount;
-    private Double basePrice;
+    private BigDecimal basePrice;
 }

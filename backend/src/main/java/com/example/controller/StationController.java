@@ -25,21 +25,13 @@ public class StationController {
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping
     public ResponseEntity<List<StationResponse>> findAll() {
-        List<StationResponse> stations = stationService.findAll();
-        if (stations.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(stations);
+        return ResponseEntity.ok(stationService.findAll());
     }
 
     @Operation(summary = "Find all stations by part name or part city")
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping("/search/{str}")
     public ResponseEntity<List<StationResponse>> findAllByPartNameOrCity(@PathVariable("str") String str) {
-        List<StationResponse> stations = stationService.findAllByPartNameOrCity(str);
-        if (stations.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(stations);
+        return ResponseEntity.ok(stationService.findAllByPartNameOrCity(str));
     }
 }

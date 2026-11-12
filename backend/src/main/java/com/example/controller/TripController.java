@@ -26,11 +26,7 @@ public class TripController {
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping("/search")
     public ResponseEntity<List<TripResponse>> searchTrip(@RequestBody SearchTripRequest request) {
-        List<TripResponse> trips = tripService.searchTrip(request);
-        if (trips.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(trips);
+        return ResponseEntity.ok(tripService.searchTrip(request));
     }
 
 }

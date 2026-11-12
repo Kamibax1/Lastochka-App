@@ -19,14 +19,16 @@ public class TrainEntity {
     private String model;
 
     @Column(nullable = false)
-    private String capacity;
+    private Integer capacity;
 
     private String description;
-    private boolean wifi;
 
-    @Column(name = "power_outlets")
-    private int powerOutlets;
+    @Column(nullable = false)
+    private Boolean wifi = false;
 
-    @Column(name = "bike_space")
-    private boolean bikeSpace;
+    @Column(name = "power_outlets", nullable = false)
+    private Integer powerOutlets = 0;
+
+    @Column(name = "bike_space", nullable = false)
+    private Boolean bikeSpace = false;
 }

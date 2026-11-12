@@ -23,6 +23,6 @@ public class StationEntity {
 
     private String city;
 
-    @Column(name = "is_active")
-    private Boolean isActive;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 }
