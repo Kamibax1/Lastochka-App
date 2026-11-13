@@ -36,7 +36,7 @@ public class SeatMapMapper {
         return response;
     }
 
-    public SeatDto toSeatDto(SeatEntity seatEntity, TripEntity tripEntity) {
+    private SeatDto toSeatDto(SeatEntity seatEntity, TripEntity tripEntity) {
         BigDecimal basePrice = tripEntity.getRoute().getBasePrice();
         BigDecimal price = switch (seatEntity.getCategory()) {
             case STANDARD -> basePrice;
@@ -53,7 +53,7 @@ public class SeatMapMapper {
         return response;
     }
 
-    public CarDto toCarDto(Integer carNumber, List<SeatEntity> seatsEntity, TripEntity tripEntity) {
+    private CarDto toCarDto(Integer carNumber, List<SeatEntity> seatsEntity, TripEntity tripEntity) {
         List<SeatDto> seatsDto = seatsEntity.stream()
                 .sorted(Comparator.comparing(SeatEntity::getSeatNumber, Comparator.naturalOrder()))
                 .map(seat -> toSeatDto(seat, tripEntity))

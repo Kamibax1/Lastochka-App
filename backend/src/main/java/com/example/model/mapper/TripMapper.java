@@ -24,7 +24,7 @@ public class TripMapper {
         return response;
     }
 
-    public TripStationDto toTripStationResponse(StationEntity entity) {
+    private TripStationDto toTripStationResponse(StationEntity entity) {
         TripStationDto response = new TripStationDto();
         response.setId(entity.getId());
         response.setCode(entity.getCode());
@@ -33,7 +33,7 @@ public class TripMapper {
         return response;
     }
 
-    public TripTrainDto toTripTrainResponse(TrainEntity entity) {
+    private TripTrainDto toTripTrainResponse(TrainEntity entity) {
         TripTrainDto response = new TripTrainDto();
         response.setId(entity.getId());
         response.setModel(entity.getModel());
@@ -44,7 +44,7 @@ public class TripMapper {
         return response;
     }
 
-    public TripRouteDto toTripRouteResponse(RouteEntity entity) {
+    private TripRouteDto toTripRouteResponse(RouteEntity entity) {
         TripRouteDto response = new TripRouteDto();
         response.setId(entity.getId());
         response.setName(entity.getName());
