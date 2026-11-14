@@ -4,6 +4,7 @@ import com.example.model.dto.response.StationResponse;
 import com.example.service.StationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/stations")
+@Tag(name = "Stations")
 public class StationController {
     private final StationService stationService;
 
@@ -32,6 +34,8 @@ public class StationController {
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping("/search/{str}")
     public ResponseEntity<List<StationResponse>> findAllByPartNameOrCity(@PathVariable("str") String str) {
-        return ResponseEntity.ok(stationService.findAllByPartNameOrCity(str));
+        List<StationResponse> stations = stationService.findAllByPartNameOrCity(str);
+        if (stations.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(stations);
     }
 }

@@ -6,6 +6,7 @@ import com.example.model.dto.response.trip.seat.SeatMapResponse;
 import com.example.service.TripService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/trips")
+@Tag(name = "Trips")
 public class TripController {
     private final TripService tripService;
 
@@ -25,7 +27,9 @@ public class TripController {
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping("/search")
     public ResponseEntity<List<TripResponse>> searchTrip(@RequestBody SearchTripRequest request) {
-        return ResponseEntity.ok(tripService.searchTrip(request));
+        List<TripResponse> trips = tripService.searchTrip(request);
+        if (trips.isEmpty()) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(trips);
     }
 
     @Operation(summary = "Find Trip by id")
