@@ -8,11 +8,11 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class GlobalExceptionHandler {
-    @ExceptionHandler(SeatAlreadyTakenException.class)
-    public ResponseEntity<ErrorResponse> handleSeatAlreadyTakenException(SeatAlreadyTakenException e) {
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponse> handleConflictException(ConflictException e) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
-                "Seat already taken"
+                e.getMessage()
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }

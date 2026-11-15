@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.dto.request.PurchaseRequest;
+import com.example.model.dto.response.ticket.info.full.TicketFullResponse;
 import com.example.model.dto.response.ticket.info.shorts.TicketShortResponse;
 import com.example.model.dto.response.ticket.purchase.PurchaseResponse;
 import com.example.model.enums.TicketStatusEnum;
@@ -57,7 +58,21 @@ public class TicketController {
     @Operation(summary = "Get full info of user ticket by id")
     @SecurityRequirement(name = "bearer-jwt")
     @GetMapping("/user/{id}")
-    public ResponseEntity<TicketShortResponse> findByIdByUser(@PathVariable("id") UUID id, Authentication authentication){
+    public ResponseEntity<TicketFullResponse> findByIdByUser(@PathVariable("id") UUID id, Authentication authentication){
         return ResponseEntity.ok(ticketService.findByIdByUser(id, authentication));
+    }
+
+    @Operation(summary = "Pay ticket")
+    @SecurityRequirement(name = "bearer-jwt")
+    @PostMapping("/user/{ticketId}/pay")
+    public ResponseEntity<TicketShortResponse> payTicket(@PathVariable("id") UUID id, Authentication authentication){
+        return ResponseEntity.ok(purchaseService.payTicket(id, authentication));
+    }
+
+    @Operation(summary = "Cancel pay ticket")
+    @SecurityRequirement(name = "bearer-jwt")
+    @PostMapping("/user/{ticketId}/cancel")
+    public ResponseEntity<TicketShortResponse> cancelTicket(@PathVariable("ticketId") UUID id, Authentication authentication){
+        return ResponseEntity.ok(purchaseService.cancelPay(id, authentication));
     }
 }

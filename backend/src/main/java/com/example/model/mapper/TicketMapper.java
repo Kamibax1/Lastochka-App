@@ -40,6 +40,7 @@ public class TicketMapper {
         dto.setCarNumber(entity.getCarNumber());
         dto.setSeatNumber(entity.getSeatNumber());
         dto.setCategory(entity.getCategory());
+        dto.setStatus(entity.getStatus());
         return dto;
     }
 
